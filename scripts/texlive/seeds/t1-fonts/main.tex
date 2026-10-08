@@ -1,0 +1,21 @@
+% Overleaf exports often use T1 encoding with or without Latin Modern.
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[british]{babel}
+\usepackage{microtype}
+\usepackage{amsmath}
+\usepackage{siunitx}
+\usepackage[version=4]{mhchem}
+\usepackage{hyperref}
+\title{Title}
+\author{Author}
+\begin{document}
+\maketitle
+\section{Section}\subsection{Subsection}
+Roman, \textit{italic}, \textbf{bold}, \textbf{\textit{bold italic}}, \textsc{Small Caps},
+\textsf{sans \textbf{bold}}, \texttt{typewriter}, ``quotes'' -- --- é ü ß.
+{\small small} {\footnotesize footnote} {\large large} {\Large Large} {\LARGE LARGE}.
+\SI{12.5}{\milli\litre} \ce{H2O}. $x^2 + \alpha$.
+\begin{table}[h]\centering\caption{Caption}\begin{tabular}{ll}a&b\end{tabular}\end{table}
+\end{document}

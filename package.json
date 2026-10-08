@@ -1,0 +1,37 @@
+{
+  "name": "pockettex",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Offline-first LaTeX editor PWA: pdfTeX in WebAssembly, no backend.",
+  "license": "AGPL-3.0-only",
+  "type": "module",
+  "scripts": {
+    "build:texlive": "node scripts/build-texlive.mjs",
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --port 4173 --strictPort",
+    "typecheck": "tsc --noEmit",
+    "test:engine": "node scripts/texlive/compile-node.mjs tests/fixtures/orgo-lab main.tex --expect-pages 3",
+    "test:unit": "node --test tests/unit/*.test.ts",
+    "test:e2e": "playwright test",
+    "test": "npm run test:unit && npm run test:e2e"
+  },
+  "dependencies": {
+    "@codemirror/autocomplete": "^6.20.0",
+    "@codemirror/commands": "^6.11.1",
+    "@codemirror/language": "^6.13.1",
+    "@codemirror/legacy-modes": "^6.5.5",
+    "@codemirror/search": "^6.7.2",
+    "@codemirror/state": "^6.7.6",
+    "@codemirror/view": "^6.43.14",
+    "@lezer/highlight": "^1.2.5",
+    "jszip": "^3.10.1",
+    "pdfjs-dist": "6.4.299"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1",
+    "@types/node": "^22.10.0",
+    "typescript": "~5.9.3",
+    "vite": "^7.3.0"
+  }
+}

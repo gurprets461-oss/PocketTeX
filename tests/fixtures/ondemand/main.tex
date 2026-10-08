@@ -1,0 +1,10 @@
+% Uses packages that are NOT in the precached bundle, to exercise the
+% on-demand package tree and "Make available offline".
+\documentclass{article}
+\usepackage{lipsum}
+\usepackage{tcolorbox}
+\begin{document}
+\begin{tcolorbox}[title=On-demand packages]
+\lipsum[1]
+\end{tcolorbox}
+\end{document}

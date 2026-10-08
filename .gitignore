@@ -1,0 +1,9 @@
+node_modules/
+dist/
+texlive-build/
+test-results/
+playwright-report/
+tests/artifacts/
+*.log
+!tests/unit/logs/*.log
+.DS_Store

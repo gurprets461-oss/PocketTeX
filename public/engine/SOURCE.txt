@@ -1,0 +1,17 @@
+PocketTeX engine files
+======================
+
+swiftlatexpdftex.js, swiftlatexpdftex.wasm
+  Unmodified files from the SwiftLaTeX release "v20022022"
+  https://github.com/SwiftLaTeX/SwiftLaTeX/releases/download/v20022022/20-02-2022.zip
+  (archive sha256 cf5535ffe9cdf42f7c4522e96bba4d33db10c418a7ceb24e5d80504be7de7150)
+  swiftlatexpdftex.js   sha256 019ccf66c2981cc3a371ca8983f8a0f191952e28b5df3c0b41c2e3ed80f9be65
+  swiftlatexpdftex.wasm sha256 154d08cbb298191cefe1bdd9e47a909d60fc7a96fce5f2319bfc6878c5b61cf1
+  pdfTeX 1.40.21 + BibTeX compiled to WebAssembly with Emscripten.
+  Source code: https://github.com/SwiftLaTeX/SwiftLaTeX (directory pdftex.wasm/)
+  License: GNU AGPL-3.0 (LICENSE.SwiftLaTeX)
+
+engine-worker.js, driver.js
+  PocketTeX code (GNU AGPL-3.0). Replaces SwiftLaTeX's network file resolver
+  (its texlive.swiftlatex.com server is offline) and drives multi-pass
+  compilation with BibTeX.

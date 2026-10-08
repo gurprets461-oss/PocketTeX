@@ -1,0 +1,64 @@
+% Common lab-report packages and font shapes (Computer Modern, OT1).
+\documentclass[12pt]{article}
+\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{gensymb}
+\usepackage{upgreek}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{booktabs,multirow,tabularx,array,longtable,makecell}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{setspace}
+\usepackage{siunitx}
+\usepackage[version=4]{mhchem}
+\usepackage{chemfig}
+\usepackage{textcomp}
+\usepackage{url}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Lab report}
+\lfoot{\thepage}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\begin{document}
+\section{Shapes and symbols}\label{sec:a}
+Roman, \textit{italic}, \textbf{bold}, \textbf{\textit{bold italic}}, \textsc{Small Caps},
+\textsf{sans \textbf{bold} \textit{italic}}, \texttt{typewriter}, \emph{emph}, \underline{under}.
+{\small small} {\footnotesize footnote} {\scriptsize script} {\large large} {\Large Large}
+{\LARGE LARGE} {\huge huge} {\Huge Huge}.
+Degrees: 25\,\degree C, \textdegree, \SI{25}{\celsius}, \si{\micro\litre}, $\upmu$, \ang{30}.
+Maths: $\alpha + \beta \leq \sum_{i=1}^{n} x_i^2$, $\mathbb{R}$, $\mathcal{L}$,
+$\mathfrak{g}$, $\boldsymbol{v}$, $\vec{F} = m\vec{a}$, $\Delta H^\circ$.
+\begin{align}
+  K_\text{eq} &= \frac{[\ce{C}][\ce{D}]}{[\ce{A}][\ce{B}]} \label{eq:k}\\
+  \Delta G &= -RT\ln K
+\end{align}
+\begin{definition}A limiting reagent is consumed first.\end{definition}
+See \cref{eq:k}, \cref{tab:a} and \cref{fig:a}\footnote{A footnote.}. \url{https://example.org}
+\begin{itemize}[noitemsep]\item one \item two\end{itemize}
+\begin{enumerate}[label=(\alph*)]\item a \item b\end{enumerate}
+{\color{red}red} {\color{blue}blue} \colorbox{yellow}{box} \textcolor{gray}{gray}
+\ce{^{1}H} NMR \ce{CDCl3}: $\delta$ 7.26. \ce{Cu^2+ + 2e- <=> Cu}. \ce{NaCl(aq)}.
+\begin{table}[H]\centering\caption{Table}\label{tab:a}
+\begin{tabularx}{\linewidth}{lXS[table-format=2.1]}\toprule
+\multirow{2}{*}{A} & \makecell{multi\\line} & 1.0 \\ & x & 22.5\\\bottomrule
+\end{tabularx}\end{table}
+\begin{figure}[H]\centering
+\begin{subfigure}{0.45\linewidth}\centering\chemfig{H-C(-[2]H)(-[6]H)-OH}\caption{Methanol}\end{subfigure}
+\begin{subfigure}{0.45\linewidth}\centering\chemfig{*6(-=-(-NO_2)=-=)}\caption{Nitrobenzene}\end{subfigure}
+\caption{Structures}\label{fig:a}\end{figure}
+\schemestart A \arrow{->[\ce{H+}]} B \schemestop
+\onehalfspacing Text. \cite{key}
+\begin{thebibliography}{9}\bibitem{key} A. Author, \emph{Book}, 2020.\end{thebibliography}
+\end{document}

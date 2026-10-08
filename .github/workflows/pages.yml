@@ -1,0 +1,100 @@
+# Builds PocketTeX, runs the unit and end-to-end tests (import -> compile ->
+# offline compile in headless Chromium) and, on the default branch, deploys
+# dist/ to GitHub Pages.
+#
+# One-time setup: Settings -> Pages -> Build and deployment -> Source: "GitHub Actions".
+name: Build, test and deploy
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04 # TeX Live 2023 from the Ubuntu archive; keep in sync with the README
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install TeX Live (packages the format, bundle and on-demand tree come from)
+        run: |
+          sudo apt-get update
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+            texlive-latex-base texlive-latex-recommended texlive-latex-extra \
+            texlive-science texlive-pictures texlive-fonts-recommended \
+            texlive-plain-generic texlive-bibtex-extra texlive-lang-english \
+            lmodern cm-super
+
+      - run: npm ci
+
+      - name: Build TeX Live format, precache bundle and package tree
+        run: npm run build:texlive
+
+      - name: Work out the Pages base path
+        id: base
+        run: |
+          # Project sites live at /<repo>/; a custom domain would serve from /.
+          echo "path=/${{ github.event.repository.name }}/" >> "$GITHUB_OUTPUT"
+
+      - name: Build app
+        run: npm run build
+        env:
+          BASE_PATH: ${{ steps.base.outputs.path }}
+
+      - name: Unit tests
+        run: npm run test:unit
+
+      - name: Engine smoke test (Node)
+        run: npm run test:engine
+
+      - name: Install Chromium for Playwright
+        run: npx playwright install --with-deps chromium
+
+      - name: End-to-end tests
+        run: npm run test:e2e
+        env:
+          BASE_PATH: ${{ steps.base.outputs.path }}
+
+      - name: Upload screenshots and traces
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-artifacts
+          path: |
+            tests/artifacts/
+            test-results/
+          if-no-files-found: ignore
+
+      - name: Upload Pages artifact
+        if: github.event_name != 'pull_request' && github.ref_name == github.event.repository.default_branch
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    if: github.event_name != 'pull_request' && github.ref_name == github.event.repository.default_branch
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

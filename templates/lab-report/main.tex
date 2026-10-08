@@ -1,0 +1,46 @@
+\documentclass[11pt]{article}
+
+% Page layout and fonts
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+
+% Maths, units and chemistry
+\usepackage{amsmath,amssymb}
+\usepackage{siunitx}  % \SI{12.5}{\milli\litre}
+\usepackage[version=4]{mhchem}  % \ce{H2SO4}
+\usepackage{chemfig}  % structures
+
+% Figures and tables
+\usepackage{graphicx}
+\usepackage{float}  % [H] placement
+\usepackage{booktabs}  % \toprule etc.
+\usepackage{caption}
+
+\usepackage[hidelinks]{hyperref}
+
+\graphicspath{{figures/}}
+\sisetup{per-mode=symbol, separate-uncertainty=true}
+
+\title{Experiment N: Title of the Experiment}
+\author{Your Name \\ \small Lab partner: Partner Name}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+One paragraph: what was made or measured, the key result (yield, melting point,
+purity) and the main conclusion.
+\end{abstract}
+
+\input{sections/introduction}
+\input{sections/experimental}
+\input{sections/results}
+\input{sections/discussion}
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}
